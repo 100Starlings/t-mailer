@@ -4,7 +4,7 @@ module T
       # Check gem is installed or not. If not it will raise error.
       #
       # @param [String] a API's class name
-      def check_delivery_system_defined(klass)
+      def check_api_defined(klass)
         unless T::Mailer.const_defined?(klass)
           fail Error::DeliverySystemNotDefined,
             "Please install #{using_gem(klass)} gem."

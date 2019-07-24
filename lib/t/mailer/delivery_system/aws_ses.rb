@@ -6,12 +6,12 @@ module T
 
         attr_reader :settings
 
-        def initialize(options)
+        def initialize(options = {})
           @settings = options
         end
 
         def deliver(message)
-          check_delivery_system_defined("Api::AwsSes")
+          check_api_defined("Api::AwsSes")
 
           options = generate_options(message)
 

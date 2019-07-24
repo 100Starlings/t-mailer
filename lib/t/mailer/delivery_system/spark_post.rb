@@ -6,12 +6,12 @@ module T
 
         attr_reader :settings
 
-        def initialize(options)
+        def initialize(options = {})
           @settings = options
         end
 
         def deliver(message)
-          check_delivery_system_defined("Api::SparkPost::Transmissions")
+          check_api_defined("Api::SparkPost::Transmissions")
 
           options = generate_options(message)
 
