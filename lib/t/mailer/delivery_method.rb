@@ -1,6 +1,8 @@
 module T
   module Mailer
     class DeliveryMethod
+      include Helper
+
       attr_reader :settings
 
       def initialize(options = {})
@@ -31,45 +33,6 @@ module T
       end
 
       private
-
-      def get_value_from(message_field)
-        return if message_field.nil?
-
-        message_field.public_send(field_value)
-      end
-
-      def field_value
-        if check_version_of("mail", "> 2.7.0")
-          "unparsed_value"
-        elsif check_version_of("mail", "= 2.7.0")
-          "instance_variable_get('@unparsed_value')"
-        elsif check_version_of("mail", "< 2.7.0")
-          "instance_variable_get('@value')"
-        end
-      end
-
-      def check_version_of(gem_name, version)
-        requirement = Gem::Requirement.new(version)
-        version     = Gem.loaded_specs[gem_name].version
-
-        requirement.satisfied_by?(version)
-      end
-
-      def check_delivery_system_defined(klass)
-        unless T::Mailer.const_defined?(klass)
-          fail Error::DeliverySystemNotDefined,
-            "Please install #{using_gem(klass)} gem."
-        end
-      end
-
-      def using_gem(klass)
-        case klass
-        when "Api::AwsSes"
-          "aws-sdk-ses"
-        when "Api::SparkPost::Transmissions"
-          "simple_spark"
-        end
-      end
 
       def deliver_with_aws_ses(message)
         check_delivery_system_defined("Api::AwsSes")
