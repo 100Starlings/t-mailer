@@ -20,4 +20,14 @@ RSpec.describe T::Mailer::Error do
       end
     end
   end
+
+  describe "MissingCredentials" do
+    it "raises error with message" do
+      begin
+        raise described_class::MissingCredentials, "Error message"
+      rescue described_class::MissingCredentials => error
+        expect(error.message).to eq("Error message")
+      end
+    end
+  end
 end
