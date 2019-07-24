@@ -1,7 +1,7 @@
 module T
   module Mailer
     class DeliveryMethod
-      attr_accessor :settings
+      attr_reader :settings
 
       def initialize(options = {})
         @settings = {
@@ -55,10 +55,24 @@ module T
         requirement.satisfied_by?(version)
       end
 
-      def deliver_with_aws_ses(message)
-        unless T::Mailer.const_defined?("Api::AwsSes")
-          fail Error::DeliverySystemNotDefined, "Please install aws-sdk-ses gem."
+      def check_delivery_system_defined(klass)
+        unless T::Mailer.const_defined?(klass)
+          fail Error::DeliverySystemNotDefined,
+            "Please install #{using_gem(klass)} gem."
         end
+      end
+
+      def using_gem(klass)
+        case klass
+        when "Api::AwsSes"
+          "aws-sdk-ses"
+        when "Api::SparkPost::Transmissions"
+          "simple_spark"
+        end
+      end
+
+      def deliver_with_aws_ses(message)
+        check_delivery_system_defined("Api::AwsSes")
 
         options = {}
         options[:raw_message] = { data: message.to_s }
@@ -78,9 +92,7 @@ module T
       end
 
       def deliver_with_sparkpost(message)
-        unless T::Mailer.const_defined?("Api::SparkPost")
-          fail Error::DeliverySystemNotDefined, "Please install simple_spark gem."
-        end
+        check_delivery_system_defined("Api::SparkPost::Transmissions")
 
         recipients = message.to.map do |to|
           {
