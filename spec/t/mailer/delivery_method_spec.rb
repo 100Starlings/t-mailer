@@ -64,55 +64,12 @@ RSpec.describe T::Mailer::DeliveryMethod do
         }
       end
 
-      context "and the API is not defined" do
-        before do
-          allow(T::Mailer).to receive(:const_defined?).and_return(false)
-        end
+      it "calls the right delivery system with the right data" do
+        expect(T::Mailer::DeliverySystem::AwsSes)
+          .to receive_message_chain(:new, :deliver)
+          .with(message)
 
-        it "raises error with message" do
-          expect { subject }.to raise_error(
-            T::Mailer::Error::DeliverySystemNotDefined,
-            "Please install aws-sdk-ses gem."
-          )
-        end
-      end
-
-      context "and the API is defined" do
-        let(:api_options) do
-          {
-            raw_message:            {
-              data: message.to_s,
-            },
-            tags:                   [
-              {
-                name:  "delivery_handler",
-                value: "tag_value",
-              },
-            ],
-            configuration_set_name: "test_events_tracking",
-          }
-        end
-        let(:respose) { OpenStruct.new(message_id: "message_id") }
-
-        it "calls the right api with the right data" do
-          expect(T::Mailer::Api::AwsSes)
-            .to receive_message_chain(:new, :send_raw_email)
-            .with(api_options)
-
-          subject
-        end
-
-        context "and checks returned values" do
-          before do
-            allow(T::Mailer::Api::AwsSes)
-              .to receive_message_chain(:new, :send_raw_email)
-              .and_return(respose)
-          end
-
-          it "returns back with the right message id" do
-            expect(subject.message_id).to eq("message_id")
-          end
-        end
+        subject
       end
     end
 
@@ -133,73 +90,12 @@ RSpec.describe T::Mailer::DeliveryMethod do
         }
       end
 
-      context "and the API is not defined" do
-        before do
-          allow(T::Mailer).to receive(:const_defined?).and_return(false)
-        end
+      it "calls the right delivery system with the right data" do
+        expect(T::Mailer::DeliverySystem::SparkPost)
+          .to receive_message_chain(:new, :deliver)
+          .with(message)
 
-        it "raises error with message" do
-          expect { subject }.to raise_error(
-            T::Mailer::Error::DeliverySystemNotDefined,
-            "Please install simple_spark gem."
-          )
-        end
-      end
-
-      context "and the API is defined" do
-        let(:api_options) do
-          {
-            options:     {
-              open_tracking:  true,
-              click_tracking: false,
-              transactional:  true,
-            },
-            campaign_id: "tag_value",
-            content:     {
-              email_rfc822: message.to_s,
-            },
-            metadata:    {
-              website: "testwebsite",
-            },
-            recipients:  [
-              {
-                address: {
-                  email: "to@example.com",
-                },
-                tags:    [
-                  "tag_value",
-                ],
-              },
-            ],
-          }
-        end
-        let(:respose) do
-          {
-            "total_rejected_recipients" => 0,
-            "total_accepted_recipients" => 1,
-            "id"                        => "message_id",
-          }
-        end
-
-        it "calls the right api with the right data" do
-          expect(T::Mailer::Api::SparkPost::Transmissions)
-            .to receive_message_chain(:new, :create)
-            .with(api_options)
-
-          subject
-        end
-
-        context "and checks returned values" do
-          before do
-            allow(T::Mailer::Api::SparkPost::Transmissions)
-              .to receive_message_chain(:new, :create)
-              .and_return(respose)
-          end
-
-          it "returns back with the right message id" do
-            expect(subject.message_id).to eq("message_id")
-          end
-        end
+        subject
       end
     end
 
