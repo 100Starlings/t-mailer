@@ -8,6 +8,9 @@ require "t/mailer/version"
 require "t/mailer/api/aws_ses"
 require "t/mailer/api/spark_post"
 
+require "t/mailer/delivery_system/aws_ses"
+require "t/mailer/delivery_system/spark_post"
+
 module T
   module Mailer
     class << self
