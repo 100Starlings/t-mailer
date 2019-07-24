@@ -7,10 +7,14 @@ module T
     module Api
       module SparkPost
         class Transmissions
+          include Helper
+
           attr_reader :settings
 
-          def initialize(options = {})
+          def initialize(options)
             @settings = options
+
+            check_settings(:sparkpost_api_key)
           end
 
           def client

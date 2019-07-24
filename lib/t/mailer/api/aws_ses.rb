@@ -6,10 +6,15 @@ module T
   module Mailer
     module Api
       class AwsSes
+        include Helper
+
         attr_reader :settings
 
-        def initialize(options = {})
+        def initialize(options)
           @settings = options
+
+          check_settings(:aws_access_key_id, :aws_default_region,
+            :aws_secret_access_key)
         end
 
         def client

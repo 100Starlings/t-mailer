@@ -1,0 +1,8 @@
+<SendRawEmailResponse xmlns="https://email.amazonaws.com/doc/2010-03-31/">
+  <SendRawEmailResult>
+    <MessageId>000001271b15238a-fd3ae762-2563-11df-8cd4-6d4e828a9ae8-000000</MessageId>
+  </SendRawEmailResult>
+  <ResponseMetadata>
+    <RequestId>fd3ae762-2563-11df-8cd4-6d4e828a9ae8</RequestId>
+  </ResponseMetadata>
+</SendRawEmailResponse>

@@ -1,10 +1,12 @@
-require "t/mailer/api/aws_ses"
-require "t/mailer/api/spark_post"
+require "t/mailer/helper"
 
 require "t/mailer/delivery_method"
 require "t/mailer/error"
 require "t/mailer/railtie"
 require "t/mailer/version"
+
+require "t/mailer/api/aws_ses"
+require "t/mailer/api/spark_post"
 
 module T
   module Mailer
