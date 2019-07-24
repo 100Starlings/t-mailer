@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# installed gem versions
+Gemfile.lock
