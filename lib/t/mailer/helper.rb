@@ -34,10 +34,10 @@ module T
       #
       # @return [Boolean] true/false
       def check_version_of(gem_name, version)
-        requirement = Gem::Requirement.new(version)
-        version     = Gem.loaded_specs[gem_name].version
+        requirement     = Gem::Requirement.new(version)
+        current_version = Gem.loaded_specs[gem_name].version
 
-        requirement.satisfied_by?(version)
+        requirement.satisfied_by?(current_version)
       end
 
       # How to gets the uparsed value of the mail message fields.
@@ -75,6 +75,8 @@ module T
           "aws-sdk-ses"
         when "Api::SparkPost::Transmissions"
           "simple_spark"
+        else
+          "unknown"
         end
       end
     end

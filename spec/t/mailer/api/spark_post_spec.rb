@@ -118,7 +118,7 @@ RSpec.describe T::Mailer::Api::SparkPost::Transmissions do
     subject { described_class.new(options).create(attrs) }
 
     before do
-      stub_request(:post, /sparkpost.com/).and_return(
+      stub_request(:post, /sparkpost.com/).to_return(
         status: 200,
         body: File.read("#{Dir.pwd}/spec/fixtures/spark_post_response.json"),
       )

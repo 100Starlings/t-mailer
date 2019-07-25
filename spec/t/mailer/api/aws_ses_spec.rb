@@ -116,7 +116,7 @@ RSpec.describe T::Mailer::Api::AwsSes do
     subject { described_class.new(options).send_raw_email(params) }
 
     before do
-      stub_request(:post, /amazonaws.com/).and_return(
+      stub_request(:post, /amazonaws.com/).to_return(
         status: 200,
         body: File.read("#{Dir.pwd}/spec/fixtures/aws_ses_response.xml"),
       )
