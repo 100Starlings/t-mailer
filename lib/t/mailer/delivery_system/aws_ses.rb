@@ -6,10 +6,21 @@ module T
 
         attr_reader :settings
 
+        # Set settings with the required credentials for the API, but allow to
+        # call this delivery system without it.
+        #
+        # @param [Hash] with the credentials
         def initialize(options = {})
           @settings = options
         end
 
+        # Check that the API is loaded. If API is missing it will raise error.
+        # If API exists then it will call the API with the generated options
+        # from the given mail message.
+        #
+        # @param [Mail::Message] message what we would like to send
+        #
+        # @return [Mail::Message] message with the changed the message_id
         def deliver(message)
           check_api_defined("Api::AwsSes")
 
@@ -21,6 +32,11 @@ module T
           message
         end
 
+        # Generate the required hash what it will send via API.
+        #
+        # @param [Mail::Message] message what we would like to send
+        #
+        # @return [Hash] options for the API
         def generate_options(message)
           {
             raw_message:            {

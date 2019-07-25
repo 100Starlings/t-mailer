@@ -1,3 +1,4 @@
+# If the use outside of Rails then do not load this code.
 return unless defined?(Rails)
 
 module T

@@ -5,6 +5,12 @@ module T
 
       attr_reader :settings
 
+      # Set settings with the required credentials for the API, but allow to
+      # call the delivery method without it. In that case it will set that up
+      # with the default. If credentials has been added then it will override
+      # the default credentials.
+      #
+      # @param [Hash] with the credentials
       def initialize(options = {})
         @settings = {
           aws_access_key_id:     T::Mailer.configuration.aws_access_key_id,
@@ -14,6 +20,12 @@ module T
         }.merge!(options)
       end
 
+      # Check that the delivery system is provided. If delivery system is
+      # missing it will raise error. If delivery system was provided then it
+      # will call the given delivery system with the message. If the provided
+      # delivery system does not exist the it will raise error.
+      #
+      # @param [Mail::Message] message what we would like to send
       def deliver!(message)
         delivery_system = get_value_from(message["delivery_system"])
 

@@ -1,3 +1,4 @@
+# If the required gem is not installed then do not load this API.
 return unless Gem.loaded_specs.has_key?("aws-sdk-ses")
 
 require "aws-sdk-ses"
@@ -10,6 +11,10 @@ module T
 
         attr_reader :settings
 
+        # Set settings and check if the required credentials are exist. If the
+        # credentials are missing then it will raise error.
+        #
+        # @param [Hash] with the credentials
         def initialize(options)
           @settings = options
 
@@ -17,6 +22,7 @@ module T
             :aws_secret_access_key)
         end
 
+        # Creates a client which will connect to server via API
         def client
           credentials = Aws::Credentials.new(settings[:aws_access_key_id],
             settings[:aws_secret_access_key])
@@ -85,7 +91,11 @@ module T
         #   resp.message_id #=> String
         #
         # @overload send_raw_email(params = {})
-        # @param [Hash] params ({})
+        #
+        # @param [Hash] with the details of the email
+        #
+        # @return [Object]
+        #   #<struct Aws::SES::Types::SendRawEmailResponse message_id="an_id">
         def send_raw_email(params = {})
           client.send_raw_email(params)
         end

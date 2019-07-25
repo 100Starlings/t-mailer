@@ -16,10 +16,23 @@ module T
     class << self
       attr_accessor :configuration
 
+      # Returns back with configuration or initialze it with default values.
       def configuration
         @configuration ||= Configuration.new
       end
 
+      # Configure T::Mailer and set up required credentials if environment
+      # variables does not exist.
+      #
+      # @example using Rails config/initializers/t-mailer.rb
+      #
+      #          T::Mailer.configure do |config|
+      #            config.aws_access_key_id     = "aws_access_key_id"
+      #            config.aws_default_region    = "aws_default_region"
+      #            config.aws_secret_access_key = "aws_secret_access_key"
+      #            config.sparkpost_api_key     = "sparkpost_api_key"
+      #          end
+      #
       def configure
         yield(configuration)
       end
@@ -46,6 +59,11 @@ module T
 
       private
 
+      # If environment variables exist then it can pick up and set up those
+      # credentials automatically (no need config/initializers/t-mailer.rb file).
+      # If environment variable does not exist then it will leave it blank.
+      #
+      # @param [String] credential/API key variable name
       def set_credential(variable_name)
         if ENV[variable_name].nil?
           public_send("#{variable_name.downcase}=", "")

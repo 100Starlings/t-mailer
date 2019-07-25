@@ -1,3 +1,4 @@
+# If the required gem is not installed then do not load this API.
 return unless Gem.loaded_specs.has_key?("simple_spark")
 
 require "simple_spark"
@@ -11,12 +12,17 @@ module T
 
           attr_reader :settings
 
+          # Set settings and check if the required credential exists. If the
+          # credential is missing then it will raise error.
+          #
+          # @param [Hash] with the credentials
           def initialize(options)
             @settings = options
 
             check_settings(:sparkpost_api_key)
           end
 
+          # Creates a client which will connect to server via API
           def client
             SimpleSpark::Client.new(api_key: settings[:sparkpost_api_key])
           end
@@ -59,6 +65,10 @@ module T
           #     "id": "11668787484950529"
           #   }
           # }
+          #
+          # @param [Hash] with the details of the email
+          #
+          # @return [Hash] with the server response
           def create(attrs)
             client.transmissions.create(attrs)
           end
