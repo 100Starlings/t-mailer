@@ -1,6 +1,6 @@
 # T-mailer
 
-T-mailer helps you to use ActionMailer with different providers' API. It sends emails using raw/rfc822 message type. Which means it converts mail to string and sends it completely, there is no any intermediate changes, so what you send is what you get. It supports more APIs (see below) and you can decide which one would like to use. It allows you to send different emails with different APIs. It can help to move between providers, load balacing or cost management.
+T-mailer helps you to use ActionMailer with different providers' API. It sends emails using raw/rfc822 message type. Which means it converts mail to string and sends it completely. There is no any intermediate changes, so what you send is what you get. It supports more APIs (see below) and you can decide which one would like to use. It allows you to send different emails with different APIs. It can help to move between providers, load balacing or cost management.
 
 ## Supported APIs
 
@@ -99,13 +99,13 @@ message.message_id # => 123456789
 
 ### API Specific Features
 
-`delivery_system` is a specific option for T-mailer that the delivery method knows which API should use.
+`delivery_system` is a specific and required option for T-mailer that the delivery method knows which API should use.
 
 #### Amazon AWS SES
 
 To use AWS SES the `delivery_system` should be `ses`.
 
-Also you can add more AWS SES specific options like `tag: "test"` and `configuration_set_name: "testname"`.
+Also you can add more AWS SES specific options like `tag: "test"` (required) and `configuration_set_name: "testname"`.
 
 ```ruby
 mail(from: "from@example.com", to: "to@example.com", delivery_system: "ses", tag: "test", configuration_set_name: "testname")
