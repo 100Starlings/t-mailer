@@ -175,7 +175,7 @@ RSpec.describe T::Mailer::Helper do
       let(:version) { Gem::Version.new("2.7.1") }
 
       it "returns with the right method string" do
-        expect(subject).to eq("unparsed_value")
+        expect(subject).to eq(["unparsed_value"])
       end
     end
 
@@ -183,7 +183,7 @@ RSpec.describe T::Mailer::Helper do
       let(:version) { Gem::Version.new("2.7.0") }
 
       it "returns with the right method string" do
-        expect(subject).to eq("instance_variable_get('@unparsed_value')")
+        expect(subject).to eq(["instance_variable_get", "@unparsed_value"])
       end
     end
 
@@ -191,7 +191,7 @@ RSpec.describe T::Mailer::Helper do
       let(:version) { Gem::Version.new("2.6.9") }
 
       it "returns with the right method string" do
-        expect(subject).to eq("instance_variable_get('@value')")
+        expect(subject).to eq(["instance_variable_get", "@value"])
       end
     end
   end

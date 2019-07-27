@@ -45,11 +45,11 @@ module T
       # @return [String] version dependent method call
       def field_value
         if check_version_of("mail", "> 2.7.0")
-          "unparsed_value"
+          %w(unparsed_value)
         elsif check_version_of("mail", "= 2.7.0")
-          "instance_variable_get('@unparsed_value')"
+          %w(instance_variable_get @unparsed_value)
         elsif check_version_of("mail", "< 2.7.0")
-          "instance_variable_get('@value')"
+          %w(instance_variable_get @value)
         end
       end
 
@@ -61,7 +61,7 @@ module T
       def get_value_from(message_field)
         return if message_field.nil?
 
-        message_field.public_send(field_value)
+        message_field.public_send(*field_value)
       end
 
       # Which gem using an API class.
