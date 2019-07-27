@@ -1,6 +1,3 @@
-# If the required gem is not installed then do not load this API.
-return unless Gem.loaded_specs.has_key?("aws-sdk-ses")
-
 require "aws-sdk-ses"
 
 module T

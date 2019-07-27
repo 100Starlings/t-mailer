@@ -2,11 +2,14 @@ require "t/mailer/helper"
 
 require "t/mailer/delivery_method"
 require "t/mailer/error"
-require "t/mailer/railtie"
 require "t/mailer/version"
 
-require "t/mailer/api/aws_ses"
-require "t/mailer/api/spark_post"
+# If we use outside of Rails then do not load this code.
+require "t/mailer/railtie" if defined?(Rails)
+
+# If the required gem is not installed then do not load that API.
+require "t/mailer/api/aws_ses" if Gem.loaded_specs.has_key?("aws-sdk-ses")
+require "t/mailer/api/spark_post" if Gem.loaded_specs.has_key?("simple_spark")
 
 require "t/mailer/delivery_system/aws_ses"
 require "t/mailer/delivery_system/spark_post"

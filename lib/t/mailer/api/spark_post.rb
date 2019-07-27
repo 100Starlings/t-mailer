@@ -1,6 +1,3 @@
-# If the required gem is not installed then do not load this API.
-return unless Gem.loaded_specs.has_key?("simple_spark")
-
 require "simple_spark"
 
 module T
