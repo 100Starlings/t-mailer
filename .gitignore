@@ -1,4 +1,4 @@
-/.bundle/
+.bundle
 /.yardoc
 /_yardoc/
 /coverage/
@@ -12,3 +12,4 @@
 
 # installed gem versions
 Gemfile.lock
+gemfiles/*.gemfile.lock
