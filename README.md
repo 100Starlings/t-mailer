@@ -1,6 +1,7 @@
 # T-mailer
 
 [![Build Status](https://travis-ci.com/100Starlings/t-mailer.svg?branch=master)](https://travis-ci.com/100Starlings/t-mailer)
+[![Gem Version](https://badge.fury.io/rb/t-mailer.svg)](https://badge.fury.io/rb/t-mailer)
 
 **T-mailer** helps you to use **ActionMailer** with different providers' **API**. It sends emails using **raw/rfc822** message type. Which means it converts the mail object to string and sends it completely. There is no any intermediate changes, so what you send is what you get. It supports more APIs (see below) and you can decide which one would like to use. It allows you to send different emails with different APIs. It can help to move between providers, load balacing or cost management.
 
