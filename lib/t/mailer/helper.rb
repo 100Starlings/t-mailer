@@ -3,7 +3,7 @@ module T
     module Helper
       # Check gem is installed or not. If not it will raise error.
       #
-      # @param [String] a API's class name
+      # @param [String] klass the API's class name
       def check_api_defined(klass)
         unless T::Mailer.const_defined?(klass)
           fail Error::DeliverySystemNotDefined,
@@ -14,7 +14,7 @@ module T
       # Check API credentials were given.
       # If one is missing or empty it will raise error.
       #
-      # @param [List] comma separated values/symbols
+      # @param [List] required_values a comma separated values/symbols
       def check_settings(*required_values)
         has_all_settings =
           settings.values_at(*required_values).all? do |setting|
@@ -29,8 +29,8 @@ module T
 
       # Check the version of a gem.
       #
-      # @param [String] the name of the gem
-      # @param [String] the satisfied version of the gem
+      # @param [String] gem_name the name of the gem
+      # @param [String] version the satisfied version of the gem
       #
       # @return [Boolean] true/false
       def check_version_of(gem_name, version)
@@ -55,7 +55,7 @@ module T
 
       # Gets uparsed value of the mail message fields.
       #
-      # @param [Mail::Field]
+      # @param [Mail::Field] message_field
       #
       # @return [String/Hash] with the field unparsed value
       def get_value_from(message_field)
@@ -66,9 +66,9 @@ module T
 
       # Which gem using an API class.
       #
-      # @param [String] class name
+      # @param [String] klass the class name
       #
-      # @retrun [String] the gem name which should use
+      # @return [String] the gem name which should use
       def using_gem(klass)
         case klass
         when "Api::AwsSes"

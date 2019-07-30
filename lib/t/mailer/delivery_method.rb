@@ -10,7 +10,7 @@ module T
       # with the default. If credentials has been added then it will override
       # the default credentials.
       #
-      # @param [Hash] with the credentials
+      # @param [Hash] options with the credentials
       def initialize(options = {})
         @settings = {
           aws_access_key_id:     T::Mailer.configuration.aws_access_key_id,

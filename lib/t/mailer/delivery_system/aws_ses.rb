@@ -9,7 +9,7 @@ module T
         # Set settings with the required credentials for the API, but allow to
         # call this delivery system without it.
         #
-        # @param [Hash] with the credentials
+        # @param [Hash] options with the credentials
         def initialize(options = {})
           @settings = options
         end

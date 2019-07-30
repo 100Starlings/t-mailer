@@ -12,7 +12,7 @@ module T
           # Set settings and check if the required credential exists. If the
           # credential is missing then it will raise error.
           #
-          # @param [Hash] with the credentials
+          # @param [Hash] options with the credentials
           def initialize(options)
             @settings = options
 
@@ -63,7 +63,7 @@ module T
           #   }
           # }
           #
-          # @param [Hash] with the details of the email
+          # @param [Hash] attrs with the details of the email
           #
           # @return [Hash] with the server response
           def create(attrs)

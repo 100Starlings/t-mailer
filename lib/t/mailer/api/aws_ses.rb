@@ -11,7 +11,7 @@ module T
         # Set settings and check if the required credentials are exist. If the
         # credentials are missing then it will raise error.
         #
-        # @param [Hash] with the credentials
+        # @param [Hash] options with the credentials
         def initialize(options)
           @settings = options
 
@@ -89,7 +89,7 @@ module T
         #
         # @overload send_raw_email(params = {})
         #
-        # @param [Hash] with the details of the email
+        # @param [Hash] params with the details of the email
         #
         # @return [Object]
         #   #<struct Aws::SES::Types::SendRawEmailResponse message_id="an_id">

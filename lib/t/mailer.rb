@@ -66,7 +66,7 @@ module T
       # credentials automatically (no need config/initializers/t-mailer.rb file).
       # If environment variable does not exist then it will leave it blank.
       #
-      # @param [String] credential/API key variable name
+      # @param [String] variable_name the credential/API key variable name
       def set_credential(variable_name)
         if ENV[variable_name].nil?
           public_send("#{variable_name.downcase}=", "")
