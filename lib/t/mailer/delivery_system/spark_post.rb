@@ -20,7 +20,7 @@ module T
         #
         # @param [Mail::Message] message what we would like to send
         #
-        # @return [Mail::Message] message with the changed the message_id
+        # @return [Mail::Message] message with the changed message_id
         def deliver(message)
           check_api_defined("Api::SparkPost::Transmissions")
 
